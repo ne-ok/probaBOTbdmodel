@@ -20,7 +20,7 @@ namespace VkBotDb.Services
 
             var command = connection.CreateCommand();
             command.CommandText = @"
-                -- Таблица билетов
+                -- РўР°Р±Р»РёС†Р° Р±РёР»РµС‚РѕРІ
                 CREATE TABLE IF NOT EXISTS Tickets (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     EventName TEXT NOT NULL,
@@ -31,7 +31,7 @@ namespace VkBotDb.Services
                     Type TEXT NOT NULL DEFAULT 'online'
                 );
 
-                -- Таблица брони ресторана
+                -- РўР°Р±Р»РёС†Р° Р±СЂРѕРЅРё СЂРµСЃС‚РѕСЂР°РЅР°
                 CREATE TABLE IF NOT EXISTS RestaurantReservations (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Date TEXT NOT NULL,
@@ -40,7 +40,7 @@ namespace VkBotDb.Services
                     TotalTables INTEGER NOT NULL
                 );
 
-                -- Таблица загруженности аквапарка
+                -- РўР°Р±Р»РёС†Р° Р·Р°РіСЂСѓР¶РµРЅРЅРѕСЃС‚Рё Р°РєРІР°РїР°СЂРєР°
                 CREATE TABLE IF NOT EXISTS WaterparkOccupancy (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Date TEXT NOT NULL,
@@ -49,7 +49,7 @@ namespace VkBotDb.Services
                     MaxCapacity INTEGER NOT NULL
                 );
 
-                -- Таблица тарифов
+                -- РўР°Р±Р»РёС†Р° С‚Р°СЂРёС„РѕРІ
                 CREATE TABLE IF NOT EXISTS Tariffs (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Name TEXT NOT NULL,
@@ -71,57 +71,59 @@ namespace VkBotDb.Services
 
             if (count == 0)
             {
-                // Тестовые билеты
+                // РўРµСЃС‚РѕРІС‹Рµ Р±РёР»РµС‚С‹ РІ Р°РєРІР°РїР°СЂРє
                 var insertTickets = new SqliteCommand(@"
                     INSERT INTO Tickets (EventName, Date, TotalTickets, SoldTickets, Price, Type) 
                     VALUES 
-                    ('Концерт группы ""Руки Вверх""', '2024-12-25', 100, 25, 2500.00, 'online'),
-                    ('Выставка кошек', '2024-12-20', 50, 10, 500.00, 'online'),
-                    ('Спектакль ""Гамлет""', '2024-12-22', 80, 40, 1500.00, 'online'),
-                    ('Кинофестиваль', '2024-12-24', 120, 30, 800.00, 'online'),
-                    ('Новогодний бал', '2024-12-31', 200, 150, 3000.00, 'online')
+                    ('Р‘РёР»РµС‚ РІ Р°РєРІР°РїР°СЂРє - РЈС‚СЂРµРЅРЅРёР№ СЃРµР°РЅСЃ', '2025-12-25', 100, 25, 1500.00, 'online'),
+                    ('Р‘РёР»РµС‚ РІ Р°РєРІР°РїР°СЂРє - Р”РЅРµРІРЅРѕР№ СЃРµР°РЅСЃ', '2025-12-25', 80, 40, 1800.00, 'online'),
+                    ('Р‘РёР»РµС‚ РІ Р°РєРІР°РїР°СЂРє - Р’РµС‡РµСЂРЅРёР№ СЃРµР°РЅСЃ', '2025-12-25', 60, 15, 2000.00, 'online'),
+                    ('Р‘РёР»РµС‚ РІ Р°РєРІР°РїР°СЂРє - РЈС‚СЂРµРЅРЅРёР№ СЃРµР°РЅСЃ', '2025-12-26', 100, 10, 1500.00, 'online'),
+                    ('Р‘РёР»РµС‚ РІ Р°РєРІР°РїР°СЂРє - Р”РЅРµРІРЅРѕР№ СЃРµР°РЅСЃ', '2025-12-26', 80, 20, 1800.00, 'online'),
+                    ('Р”РµС‚СЃРєРёР№ Р±РёР»РµС‚ РІ Р°РєРІР°РїР°СЂРє', '2025-12-25', 50, 10, 800.00, 'online'),
+                    ('РЎРµРјРµР№РЅС‹Р№ Р±РёР»РµС‚ (2+2)', '2025-12-25', 30, 5, 4500.00, 'online')
                 ", connection);
                 insertTickets.ExecuteNonQuery();
 
-                // Бронь ресторана
+                // Р‘СЂРѕРЅСЊ СЂРµСЃС‚РѕСЂР°РЅР°
                 var insertRestaurant = new SqliteCommand(@"
                     INSERT INTO RestaurantReservations (Date, TimeSlot, AvailableTables, TotalTables) 
                     VALUES 
-                    ('2024-12-25', '18:00-20:00', 3, 10),
-                    ('2024-12-25', '20:00-22:00', 1, 10),
-                    ('2024-12-26', '18:00-20:00', 8, 10),
-                    ('2024-12-26', '20:00-22:00', 5, 10)
+                    ('2025-12-25', '18:00-20:00', 3, 10),
+                    ('2025-12-25', '20:00-22:00', 1, 10),
+                    ('2025-12-26', '18:00-20:00', 8, 10),
+                    ('2025-12-26', '20:00-22:00', 5, 10)
                 ", connection);
                 insertRestaurant.ExecuteNonQuery();
 
-                // Аквапарк
+                // РђРєРІР°РїР°СЂРє
                 var insertWaterpark = new SqliteCommand(@"
                     INSERT INTO WaterparkOccupancy (Date, TimeSlot, CurrentVisitors, MaxCapacity) 
                     VALUES 
-                    ('2024-12-25', '10:00-12:00', 45, 100),
-                    ('2024-12-25', '12:00-14:00', 80, 100),
-                    ('2024-12-25', '14:00-16:00', 95, 100),
-                    ('2024-12-26', '10:00-12:00', 30, 100),
-                    ('2024-12-26', '12:00-14:00', 60, 100)
+                    ('2025-12-25', '10:00-12:00', 45, 100),
+                    ('2025-12-25', '12:00-14:00', 80, 100),
+                    ('2025-12-25', '14:00-16:00', 95, 100),
+                    ('2025-12-26', '10:00-12:00', 30, 100),
+                    ('2025-12-26', '12:00-14:00', 60, 100)
                 ", connection);
                 insertWaterpark.ExecuteNonQuery();
 
-                // Тарифы
+                // РўР°СЂРёС„С‹
                 var insertTariffs = new SqliteCommand(@"
                     INSERT INTO Tariffs (Name, Description, Price, Duration, Category) 
                     VALUES 
-                    ('Стандарт', 'Вход в аквапарк на 2 часа', 1500.00, '2 часа', 'waterpark'),
-                    ('Премиум', 'Вход в аквапарк на 4 часа + напиток', 2500.00, '4 часа', 'waterpark'),
-                    ('Детский', 'Вход для детей до 12 лет на 2 часа', 800.00, '2 часа', 'waterpark'),
-                    ('Бизнес-ланч', 'Комплексный обед с напитком', 650.00, '1 час', 'restaurant'),
-                    ('Романтический ужин', 'Ужин на двоих с вином', 3500.00, '2 часа', 'restaurant'),
-                    ('Общий абонемент', 'Посещение всех зон комплекса', 5000.00, '1 день', 'general')
+                    ('РЎС‚Р°РЅРґР°СЂС‚', 'Р’С…РѕРґ РІ Р°РєРІР°РїР°СЂРє РЅР° 2 С‡Р°СЃР°', 1500.00, '2 С‡Р°СЃР°', 'waterpark'),
+                    ('РџСЂРµРјРёСѓРј', 'Р’С…РѕРґ РІ Р°РєРІР°РїР°СЂРє РЅР° 4 С‡Р°СЃР° + РЅР°РїРёС‚РѕРє', 2500.00, '4 С‡Р°СЃР°', 'waterpark'),
+                    ('Р”РµС‚СЃРєРёР№', 'Р’С…РѕРґ РґР»СЏ РґРµС‚РµР№ РґРѕ 12 Р»РµС‚ РЅР° 2 С‡Р°СЃР°', 800.00, '2 С‡Р°СЃР°', 'waterpark'),
+                    ('Р‘РёР·РЅРµСЃ-Р»Р°РЅС‡', 'РљРѕРјРїР»РµРєСЃРЅС‹Р№ РѕР±РµРґ СЃ РЅР°РїРёС‚РєРѕРј', 650.00, '1 С‡Р°СЃ', 'restaurant'),
+                    ('Р РѕРјР°РЅС‚РёС‡РµСЃРєРёР№ СѓР¶РёРЅ', 'РЈР¶РёРЅ РЅР° РґРІРѕРёС… СЃ РІРёРЅРѕРј', 3500.00, '2 С‡Р°СЃР°', 'restaurant'),
+                    ('РћР±С‰РёР№ Р°Р±РѕРЅРµРјРµРЅС‚', 'РџРѕСЃРµС‰РµРЅРёРµ РІСЃРµС… Р·РѕРЅ РєРѕРјРїР»РµРєСЃР°', 5000.00, '1 РґРµРЅСЊ', 'general')
                 ", connection);
                 insertTariffs.ExecuteNonQuery();
             }
         }
 
-        // Методы для билетов
+        // РњРµС‚РѕРґС‹ РґР»СЏ Р±РёР»РµС‚РѕРІ
         public List<Ticket> GetTicketsByDate(DateTime date, string type = "online")
         {
             var tickets = new List<Ticket>();
@@ -156,7 +158,7 @@ namespace VkBotDb.Services
             return tickets;
         }
 
-        // Методы для ресторана
+        // РњРµС‚РѕРґС‹ РґР»СЏ СЂРµСЃС‚РѕСЂР°РЅР°
         public List<RestaurantReservation> GetRestaurantAvailability(DateTime date)
         {
             var reservations = new List<RestaurantReservation>();
@@ -189,7 +191,7 @@ namespace VkBotDb.Services
             return reservations;
         }
 
-        // Методы для аквапарка
+        // РњРµС‚РѕРґС‹ РґР»СЏ Р°РєРІР°РїР°СЂРєР°
         public List<WaterparkOccupancy> GetWaterparkOccupancy(DateTime date)
         {
             var occupancy = new List<WaterparkOccupancy>();
@@ -222,7 +224,7 @@ namespace VkBotDb.Services
             return occupancy;
         }
 
-        // Методы для тарифов
+        // РњРµС‚РѕРґС‹ РґР»СЏ С‚Р°СЂРёС„РѕРІ
         public List<Tariff> GetTariffs(string category = "")
         {
             var tariffs = new List<Tariff>();
