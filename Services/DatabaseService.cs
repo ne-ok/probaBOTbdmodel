@@ -201,5 +201,46 @@ namespace AquaParser.Services
 
             return tariffs;
         }
-    }
+
+      
+        public async Task UpdateFromApiAsync()
+        {
+            using var client = new HttpClient();
+
+            try
+            {
+                // Получаем данные с API
+                var response = await client.GetStringAsync("https://apigateway.nordciti.ru/v1/aqua/CurrentLoad");
+                Console.WriteLine($"✅ Данные получены с API: {response}");
+
+                // Парсим JSON и обновляем БД
+                await ParseAndSaveApiData(response);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Ошибка API: {ex.Message}");
+            }
+        }
+
+        private async Task ParseAndSaveApiData(string jsonData)
+        {
+            using var connection = new SqliteConnection(_connectionString);
+            await connection.OpenAsync();
+
+            // Очищаем старые данные
+            var clearCmd = connection.CreateCommand();
+            clearCmd.CommandText = "DELETE FROM WaterparkOccupancy WHERE Date = date('now')";
+            await clearCmd.ExecuteNonQueryAsync();
+
+            // TODO: Парсим JSON и сохраняем в БД
+            var insertCmd = connection.CreateCommand();
+            insertCmd.CommandText = @"
+        INSERT INTO WaterparkOccupancy (Date, TimeSlot, CurrentVisitors, MaxCapacity)
+        VALUES (date('now'), '10:00-12:00', 50, 100)
+    ";
+            await insertCmd.ExecuteNonQueryAsync();
+        }
+      
+
+    } 
 }
