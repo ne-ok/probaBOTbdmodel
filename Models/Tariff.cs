@@ -1,4 +1,4 @@
-namespace VkBotDb.Models
+namespace AquaParser.Models // заменить "AquaParser" на название своего проекта
 {
 	public class Tariff
 	{
