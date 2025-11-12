@@ -1,4 +1,4 @@
-namespace VkBotDb.Models
+namespace AquaParser.Models // заменить "AquaParser" на название своего проекта
 {
     public class WaterparkOccupancy
     {
@@ -12,10 +12,10 @@ namespace VkBotDb.Models
         public double OccupancyPercent => MaxCapacity > 0 ? (CurrentVisitors * 100.0) / MaxCapacity : 0;
         public string OccupancyLevel => OccupancyPercent switch
         {
-            < 30 => "������",
-            < 70 => "�������",
-            < 90 => "�������",
-            _ => "������"
+            < 30 => "Низкая",
+            < 70 => "Средняя",
+            < 90 => "Высокая",
+            _ => "Полная"
         };
     }
 }
